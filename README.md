@@ -15,21 +15,6 @@ projects offering support for both ts types and JS files. This library uses Roll
 - Ensures compatibility with CommentJs and ES modules
 - Integrated with git hooks for automating tasks on git events
 
-## Installation
-
-Use your favorite package manager to install the Starter Library.
-
-```
-npm install starter-library
-```
-
-## Usage
-
-To use this library in your project, you can require it in your JavaScript/TypeScript file.
-
-```
-const starterLibrary = require('starter-library');
-```
 
 ## Contributing
 
@@ -38,7 +23,3 @@ Pull requests are welcome.
 ## License
 
 MIT
-
-## Contact
-
-For more information and queries, please contact us.
