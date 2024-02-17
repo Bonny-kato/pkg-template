@@ -5,6 +5,7 @@ import terser from "@rollup/plugin-terser";
 
 import packageJson from "./package.json" assert { type: "json" };
 import typescript from "@rollup/plugin-typescript";
+import alias from "@rollup/plugin-alias";
 
 export default [
     {
@@ -26,6 +27,11 @@ export default [
             resolve(), // Lets Rollup find 'node_modules' packages when bundling dependencies
             commonjs(), // Converts CommonJS modules to ES6 format so they can be included in a Rollup bundle
             typescript({tsconfig: "./tsconfig.json"}), // Transpiles TypeScript code to JavaScript
+            alias({
+                entries: [
+                    { find: '~/*', replacement: './src' }
+                ]
+            })
         ],
     },
     {
