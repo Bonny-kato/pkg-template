@@ -1,5 +1,5 @@
 {
-  "name": "package-template",
+  "name": "@bonny-kato/dream-library",
   "version": "1.0.0",
   "description": "",
   "main": "dist/cjs/index.js",
@@ -27,6 +27,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.11.17",
+    "@types/react": "^18.2.56",
     "husky": "^9.0.11",
     "prettier": "^3.2.5",
     "rollup": "^4.10.0",
