@@ -11,13 +11,21 @@
   "scripts": {
     "build": "rollup -c"
   },
+
   "keywords": [
-    "libray",
-    "template",
-    "starter",
-    "typescript",
-    "react",
-    "boilerplate"
+    "excel",
+    "xls",
+    "xlsx",
+    "xlsb",
+    "xlsm",
+    "ods",
+    "csv",
+    "dbf",
+    "dif",
+    "sylk",
+    "office",
+    "spreadsheet"
+
   ],
   "author": "Bonny Kato",
   "devDependencies": {
@@ -35,6 +43,11 @@
     "rollup-plugin-node-polyfills": "^0.2.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Bonny-kato/xlsx"
+
   },
   "license": "ISC",
   "dependencies": {
