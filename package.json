@@ -1,6 +1,6 @@
 {
-  "name": "@bonny-kato/dream-library",
-  "version": "1.0.0",
+  "name": "@bonny-kato/xlsx",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -32,8 +32,12 @@
     "prettier": "^3.2.5",
     "rollup": "^4.10.0",
     "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
+  }
 }

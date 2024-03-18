@@ -3,6 +3,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 
+import nodePolyfills from 'rollup-plugin-node-polyfills';
+
 import packageJson from "./package.json" assert { type: "json" };
 import typescript from "@rollup/plugin-typescript";
 
@@ -22,6 +24,7 @@ export default [
             },
         ],
         plugins: [
+            nodePolyfills(),
             terser(), // A Rollup plugin to generate a minified bundle with terser.
             resolve(), // Lets Rollup find 'node_modules' packages when bundling dependencies
             commonjs(), // Converts CommonJS modules to ES6 format so they can be included in a Rollup bundle

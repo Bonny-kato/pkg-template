@@ -1,3 +1,3 @@
-export const sayHello = () => {
-  console.log("[hello]", "there")
-}
+import * as XLSX from "xlsx";
+
+export default XLSX;
