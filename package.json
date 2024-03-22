@@ -1,6 +1,6 @@
 {
-  "name": "@bonny-kato/xlsx",
-  "version": "0.0.4",
+  "name": "@bonny-kato/local-storage",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -13,19 +13,10 @@
   },
 
   "keywords": [
-    "excel",
-    "xls",
-    "xlsx",
-    "xlsb",
-    "xlsm",
-    "ods",
-    "csv",
-    "dbf",
-    "dif",
-    "sylk",
-    "office",
-    "spreadsheet"
-
+    "local-storage",
+    "storage",
+    "db",
+    "browser storage"
   ],
   "author": "Bonny Kato",
   "devDependencies": {
@@ -46,11 +37,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Bonny-kato/xlsx"
+    "url": "git://github.com/Bonny-kato/local-storage"
 
   },
-  "license": "ISC",
-  "dependencies": {
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
-  }
+  "license": "ISC"
 }
