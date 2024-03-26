@@ -1,5 +1,5 @@
 {
-  "name": "@bonny-kato/local-storage",
+  "name": "@bonny-kato/httpclient",
   "version": "0.0.1",
   "description": "",
   "main": "dist/cjs/index.js",
@@ -11,12 +11,9 @@
   "scripts": {
     "build": "rollup -c"
   },
-
   "keywords": [
-    "local-storage",
-    "storage",
-    "db",
-    "browser storage"
+    "http client",
+    "request"
   ],
   "author": "Bonny Kato",
   "devDependencies": {
@@ -38,7 +35,6 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/Bonny-kato/local-storage"
-
   },
   "license": "ISC"
 }

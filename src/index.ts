@@ -1,92 +1,123 @@
-"use client"
-/**
- * A class for interacting with the local storage and storing/retrieving values.
- */
- class LocalStorage {
-    STORE_KEY: string;
+import { HttpMethod, IConfig, IHeaders } from "./types";
 
-    constructor(STORE_KEY: string) {
-        this.STORE_KEY = STORE_KEY;
+class HttpClient {
+    #baseUrl: string;
+    #headers: IHeaders | undefined;
+
+    constructor(config: IConfig) {
+        this.#baseUrl = config.baseUrl;
+        this.#headers = config.headers;
     }
 
     /**
-     * Retrieves the value from the local storage based on the provided key. If the key is not provided,
-     * it returns the entire local storage object. If the key is provided and exists in the local storage,
-     * it returns the corresponding value. Otherwise, it returns the default value.
+     * Makes an asynchronous GET request to the specified endpoint.
      *
-     * @param {string|null} [key=null] - The key to retrieve the value from the local storage. If not provided,
-     *                                   it returns the entire local storage object.
+     * @param {string} endpoint - The endpoint URL to send the GET request to.
+     * @return {Promise<any>} - A promise that resolves with the response data from the GET request.
      * @example
-     *  const value = getValue("my-key", defaultValueIfExist)
-     * @param {any} defaultValue - The default value to be returned if the key doesn't exist in the local storage.
-     * @returns  - The value retrieved from the local storage or the default value if the key doesn't exist.
+     * const getUsers = () => {
+     *     return httpClient.get("/users");
+     * }
      */
-    getValue(
-        key: string | null = null,
-        defaultValue?: any,
-    ) {
-        const store = JSON.parse(localStorage.getItem(this.STORE_KEY) || "{}");
-        if (key === null) {
-            return store;
+    public async get(endpoint: string): Promise<any> {
+        return this.request("GET", endpoint, null);
+    }
+
+    /**
+     * Makes a POST request to the specified endpoint with the provided data.
+     * @param {string} endpoint - The endpoint URL to make the POST request to.
+     * @param {object} data - The data to be sent in the request body.
+     * @return {Promise} - A Promise that resolves with the response from the POST request.
+     * @example
+     * const addUser = (data:User) => {
+     *     return httpClient.remove("/users", data);
+     * }
+     */
+    public async post(endpoint: string, data: object) {
+        return this.request("POST", endpoint, data);
+    }
+
+    /**
+     * Sends a PUT request to the specified endpoint with the provided data.
+     *
+     * @param {string} endpoint - The endpoint URL to send the request to.
+     * @param {object} data - The data to be sent in the request body.
+     * @return {Promise} - A Promise that resolves with the response from the server.
+     * @example
+     * const updateUser = (userId:string, data:User) => {
+     *     return httpClient.put("/users ${userId}", data);
+     * }
+     */
+    public async put(endpoint: string, data: object) {
+        return this.request("PUT", endpoint, data);
+    }
+
+    /**
+     * Removes a resource from the server.
+     *
+     * @param {string} endpoint - The endpoint of the resource to be removed.
+     * @return {Promise<void>} - A Promise that resolves when the resource is successfully removed.
+     * @example
+     * const removeUser = (userId:string) => {
+     *     return httpClient.remove("/users ${userId}");
+     * }
+     */
+    public async remove(endpoint: string) {
+        return this.request("DELETE", endpoint, null);
+    }
+
+    private async request(method: HttpMethod, endpoint: string, data?: any) {
+        const requestProps = this.getRequestConfig(method, data);
+        const response = await fetch(this.#baseUrl + endpoint, requestProps);
+        if (!response.ok) throw response;
+        return await response.json();
+    }
+
+    private isFormData<T = unknown>(payload: T): boolean {
+        return payload instanceof FormData;
+    }
+
+    /**
+     * Creates and returns a new Headers object based on the provided headers configuration.
+     *
+     * @param {IHeaders} headersConfig - The configuration object for the headers, where each key represents the header name and each value represents the header value.
+     * @return {Headers} - The newly created Headers object populated with the provided configuration.
+     */
+    private createdHeaders(headersConfig: IHeaders): Headers {
+        const headers = new Headers();
+        Object.entries(headersConfig).forEach(([key, value]) => {
+            headers.append(key, value);
+        });
+        return headers;
+    }
+
+    /**
+     * Generates the request configuration object for making HTTP requests.
+     *
+     * @private
+     * @param {HttpMethod} method - The HTTP method for the request.
+     * @param {any} [data] - The data to be sent in the request body.
+     * @returns {RequestInit} The request configuration object.
+     */
+    private getRequestConfig(method: HttpMethod, data?: any): RequestInit {
+        const headers = this.createdHeaders({
+            "Content-Type": "application/json",
+            ...this.#headers,
+        });
+
+        if (data && this.isFormData(data)) {
+            headers.delete("Content-Type");
         }
-        return key in store ? store[key] : defaultValue ;
-    }
 
-    /**
-     * Sets the value for the given key in the local storage.
-     * If the key already exists, its value will be updated.
-     * @example
-     *  const value = setValue("my-key", {key:value}) // a value can be anything
-     *
-     * @param {string} key - The key for storing the value.
-     * @param {string | boolean | Array<any> | object} value - The value to be stored.
-     */
-    setValue(
-        key: string,
-        value: string | boolean | Array<any> | object,
-    ) {
-        const store = this.getValue(null, {});
-        store[key] = value;
-        window.localStorage.setItem(this.STORE_KEY, JSON.stringify(store));
-    }
-
-
-    /**
-     * Sets the values of the object using the provided data object.
-     *
-     * @example
-     *  const value = setValues({ "my-key1": "my-value", "my-key2": {key:"value"}})
-     * @param {object} data - The data object containing key-value pairs.
-     */
-    setValues(data: object) {
-        Object.entries(data).forEach(([key, value]) => {
-            this.setValue(key, value);
-        });
-    }
-
-    /**
-     * Remove specified keys from the stored values in the local storage.
-     *
-     * @param {string | Array<string>} keys - The key(s) to be removed from the stored values.
-     *    If a single string is provided, it is treated as a single key. If an array of strings is provided,
-     *    each string represents a key that should be removed.
-     *
-     * @example
-     * const value = removeValues(["key1", "key2", "key3"])
-     *
-     * @return {void}
-     */
-    removeValues(keys: string | Array<string>): void {
-        const store = this.getValue();
-        const arrOfKeys = Array.isArray(keys) ? keys : [keys];
-        arrOfKeys.forEach((_key) => {
-            delete store[_key];
-        });
-
-        window.localStorage.removeItem(this.STORE_KEY);
-        window.localStorage.setItem(this.STORE_KEY, JSON.stringify(store));
+        return {
+            method: method,
+            headers: this.createdHeaders({
+                "Content-Type": "application/json",
+                ...this.#headers,
+            }),
+            ...(data && { body: JSON.stringify(data) }),
+        };
     }
 }
 
-
-export default LocalStorage;
+export default HttpClient;
