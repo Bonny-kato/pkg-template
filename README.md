@@ -4,6 +4,9 @@
 
 HttpClient is a simple HTTP client for making asynchronous HTTP requests in JavaScript using built-in fetch api. It supports various HTTP methods such as `GET`, `POST`, `PUT`, and `DELETE`.
 
+## Inspiration
+This utility function, used to initiate HTTP requests, was copied/pasted/modified from a version originally created by [Walter Kimaro](https://github.com/jestrux).
+
 ## Installation
 - using npm
     ```bash

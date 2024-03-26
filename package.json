@@ -1,7 +1,7 @@
 {
   "name": "@bonny-kato/httpclient",
-  "version": "0.0.3",
-  "description": "",
+  "version": "0.0.4",
+  "description": "HttpClient is a simple HTTP client for making asynchronous HTTP requests in JavaScript using built-in fetch api. It supports various HTTP methods such as `GET`, `POST`, `PUT`, and `DELETE`.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "files": [
@@ -13,9 +13,14 @@
   },
   "keywords": [
     "http client",
-    "request"
+    "request",
+    "fetch"
   ],
-  "author": "Bonny Kato",
+  "author": {
+    "name": "Bonny Kato",
+    "email": "6onnykato@gmail.com",
+    "url": "https://bonny-kato.github.io"
+  },
   "devDependencies": {
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^25.0.7",
