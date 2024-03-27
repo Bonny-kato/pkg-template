@@ -20,7 +20,10 @@ class HttpClient {
      *     return httpClient.get("/users");
      * }
      */
-    public async get(endpoint: string, customConfig?: IConfig): Promise<any> {
+    public async get(
+        endpoint: string,
+        customConfig?: Partial<IConfig>,
+    ): Promise<any> {
         return this.request("GET", endpoint, null, customConfig);
     }
 
@@ -35,7 +38,11 @@ class HttpClient {
      *     return httpClient.post("/users", data);
      * }
      */
-    public async post(endpoint: string, data: object, customConfig?: IConfig) {
+    public async post(
+        endpoint: string,
+        data: object,
+        customConfig?: Partial<IConfig>,
+    ) {
         return this.request("POST", endpoint, customConfig);
     }
 
@@ -51,7 +58,11 @@ class HttpClient {
      *     return httpClient.put("/users ${userId}", data);
      * }
      */
-    public async put(endpoint: string, data: object, customConfig?: IConfig) {
+    public async put(
+        endpoint: string,
+        data: object,
+        customConfig?: Partial<IConfig>,
+    ) {
         return this.request("PUT", endpoint, data, customConfig);
     }
 
@@ -66,7 +77,7 @@ class HttpClient {
      *     return httpClient.remove("/users ${userId}");
      * }
      */
-    public async remove(endpoint: string, customConfig?: IConfig) {
+    public async remove(endpoint: string, customConfig?: Partial<IConfig>) {
         return this.request("DELETE", endpoint, null, customConfig);
     }
 
@@ -74,7 +85,7 @@ class HttpClient {
         method: HttpMethod,
         endpoint: string,
         data?: any,
-        config?: IConfig,
+        config?: Partial<IConfig>,
     ) {
         const requestProps = this.getRequestConfig(
             method,
