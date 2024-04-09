@@ -1,5 +1,5 @@
 {
-  "name": "@bonny-kato/httpclient",
+  "name": "@bonny-kato/drem-library",
   "version": "0.0.5",
   "description": "HttpClient is a simple HTTP client for making asynchronous HTTP requests in JavaScript using built-in fetch api. It supports various HTTP methods such as `GET`, `POST`, `PUT`, and `DELETE`.",
   "main": "dist/cjs/index.js",

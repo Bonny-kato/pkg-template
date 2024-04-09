@@ -111,16 +111,23 @@
         "skipLibCheck": true
         /* Skip type checking all .d.ts files. */,
         // customer configurations
-        "module": "ESNext", // Specifies the type of module code generated, here it's set to the latest version of JavaScript/ECMAScript.
-        "declaration": true, // Generates corresponding '.d.ts' files when TypeScript compiles your code. These files provide type information for the compiled JavaScript files.
-        "declarationDir": "types", // Specifies the output directory for the generated '.d.ts' files. In your case, they'll be put into a directory named 'types'.
-        "sourceMap": false, // Controls whether a corresponding '.map' file is generated when TypeScript compiles your code. These files help in debugging your app as they map your compiled code back to your original source code. Here, it's set to false, so no map files will be generated.
-        "outDir": "dist", // Specifies the output directory for your compiled JavaScript files.
-        "moduleResolution": "node", // Specifies the module resolution strategy. "node" mimics Node.js’ module resolution mechanism. It tells TypeScript to look in the 'node_modules' directory for modules.
-        "allowSyntheticDefaultImports": true, // Allows default imports from modules with no default export. This is a way to tell TypeScript to allow JavaScript-like behavior when it comes to importing modules.
-        "emitDeclarationOnly": true, // Tells TypeScript to only emit '.d.ts' declaration files and skip emitting JavaScript files during compilation.
+        "module": "ESNext",
+        // Specifies the type of module code generated, here it's set to the latest version of JavaScript/ECMAScript.
+        "declaration": true,
+        // Generates corresponding '.d.ts' files when TypeScript compiles your code. These files provide type information for the compiled JavaScript files.
+        "declarationDir": "types",
+        // Specifies the output directory for the generated '.d.ts' files. In your case, they'll be put into a directory named 'types'.
+        "sourceMap": false,
+        // Controls whether a corresponding '.map' file is generated when TypeScript compiles your code. These files help in debugging your app as they map your compiled code back to your original source code. Here, it's set to false, so no map files will be generated.
+        "outDir": "dist",
+        // Specifies the output directory for your compiled JavaScript files.
+        "moduleResolution": "node",
+        // Specifies the module resolution strategy. "node" mimics Node.js’ module resolution mechanism. It tells TypeScript to look in the 'node_modules' directory for modules.
+        "allowSyntheticDefaultImports": true,
+        // Allows default imports from modules with no default export. This is a way to tell TypeScript to allow JavaScript-like behavior when it comes to importing modules.
+        "emitDeclarationOnly": true,
+        // Tells TypeScript to only emit '.d.ts' declaration files and skip emitting JavaScript files during compilation.
         "rootDir": "src",
         "baseUrl": ".",
-
     }
 }

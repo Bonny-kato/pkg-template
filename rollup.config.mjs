@@ -3,7 +3,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 
-import nodePolyfills from 'rollup-plugin-node-polyfills';
+import nodePolyfills from "rollup-plugin-node-polyfills";
 
 import packageJson from "./package.json" assert { type: "json" };
 import typescript from "@rollup/plugin-typescript";
@@ -14,26 +14,26 @@ export default [
         output: [
             {
                 file: packageJson.main,
-                format: "cjs",
+                format: "cjs"
                 // sourcemap: true,
             },
             {
                 file: packageJson.module,
-                format: "esm",
+                format: "esm"
                 // sourcemap: true,
-            },
+            }
         ],
         plugins: [
             nodePolyfills(),
             terser(), // A Rollup plugin to generate a minified bundle with terser.
             resolve(), // Lets Rollup find 'node_modules' packages when bundling dependencies
             commonjs(), // Converts CommonJS modules to ES6 format so they can be included in a Rollup bundle
-            typescript({tsconfig: "./tsconfig.json"}), // Transpiles TypeScript code to JavaScript
-        ],
+            typescript({ tsconfig: "./tsconfig.json" }) // Transpiles TypeScript code to JavaScript
+        ]
     },
     {
         input: "dist/esm/types/index.d.ts",
-        output: [{file: "dist/index.d.ts", format: "esm"}],
-        plugins: [dts()], // Generates a bundled .d.ts file from TypeScript declaration files
-    },
+        output: [{ file: "dist/index.d.ts", format: "esm" }],
+        plugins: [dts()] // Generates a bundled .d.ts file from TypeScript declaration files
+    }
 ];

@@ -1,161 +1,128 @@
-# HttpClient
+# Package Template
 
-## Overview
+### Overview
 
-HttpClient is a simple HTTP client for making asynchronous HTTP requests in JavaScript using built-in fetch api. It supports various HTTP methods such as `GET`, `POST`, `PUT`, and `DELETE`.
+Welcome to the Package Template repository! This template serves as a foundational structure for creating TypeScript
+packages. Leveraging Rollup and its associated plugins, it streamlines the process of building and transforming code
+into various Node.js module types, including ES Modules and CommonJS.
 
-## Inspiration
-This utility function, used to initiate HTTP requests, was copied/pasted/modified from a version originally created by [Walter Kimaro](https://github.com/jestrux).
+### Features
 
-## Installation
-- using npm
+- **Tree-shaking**: With Rollup as the build tool, the template inherently provides tree shaking, optimizing bundle size
+  by removing unused code.
+- **Type-safety**: TypeScript integration ensures type safety throughout development, with the template generating type
+  definitions for improved code completion.
+- **Minification**: The output code is minified using `@rollup/plugin-terse`, reducing file size for improved
+  performance.
+- **Multiple formats**: The final build supports multiple Node.js module formats, including CommonJS and ES Modules,
+  offering flexibility for different environments.
+- **Prettier**: Integrated Prettier ensures consistent code formatting, enhancing readability and maintainability.
+
+### Getting Started
+
+To begin, clone the project to your local machine:
+
+```bash
+git clone https://github.com/Bonny-kato/pkg-template.git dream-library
+```
+
+Navigate to the project folder you specified, in this case `dream-library`
+
+```bash
+cd dream-library
+```
+
+Open the folder in your favorite editor to start coding!
+
+### Folder struture
+
+- `index.ts`- Located at the root folder, this file exports everything from the src folder.
+- `src/index` - Export code from this folder to make it accessible from the library.
+- `.prettierrc`- Prettier configuration file.
+- `rollup.config.mjs` - Rollup configuration file
+- `tsconfig.json` - Typescript configuration file
+
+<br/>
+
+### Testing Your Package Local
+
+Testing your package locally is very crucial, and it is a highly recommended step before publishing your package. Here
+are the steps to follow to test your library locally.
+
+1. **Build for production**: Run build command to optimize code for the production, to do so run the following command
+
     ```bash
-    npm i @bonny-kato/httpclient
+    npm run build
     ```
-- using yarn
+
+2. **Link your local package**: From the root of your package directory create a symlink globally using `npm link`.
+
     ```bash
-    yarn add @bonny-kato/httpclient
+    npm link
+    ```
+   This will create a symlink globally so that you can use your package as if it were installed globally.
+   <br/>
+   <br/>
+
+3. **Use the local package in your project**: In the directory of your project where you intend to utilize the local
+   package, create a symlink to it using `npm link <package_name>`.
+
+    ```bash
+    cd my-project
+    npm link my-package
     ```
 
+   This command will create a symlink in your project's `node_modules` folder that points to your local package.
+   You can now utilize `my-package` in your project just like any other installed package. Any changes made
+   to `my-package` will be instantly reflected in your project, without the necessity of republishing or reinstalling
+   the package.
 
-## Usage
-### Constructor
-```ts
-import HttpClient from "@bonny-kato/httpclient";
+    <br/>
 
-const httpClient = new HttpClient({
-    baseUrl: 'https://api.example.com',
-    headers: {
-        'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
-    }
-});
-```
+4. **Unlinking**:
 
+   Remember to unlink the package once you've finished testing, using `npm unlink <package_name>` in your project
+   directory.
 
-### Methods
+    ```bash
+    cd my-project
+    npm unlink my-package
+    ```
 
-### get
-Makes an asynchronous GET request to the specified endpoint.
+<br/>
 
-```ts
-httpClient.get(endpoint);
-```
+### Publish the Package
 
-### post
-Make a POST request to the specified endpoint with the provided data
-```ts
-httpClient.post(endpoint, data);
-```
+To publish your package to npm, follow these steps:
 
-### put
-Sends a PUT request to the specified endpoint with the provided data.
-```ts
-httpClient.put(endpoint, data);
-```
+1. Ensure you have an npm account. If not, create one at [npmjs.com/signup](https://www.npmjs.com/signup).
+2. Log in to npm by running the following command in your terminal and following the prompts:
+    ```bash
+    npm login
+    ```
+3. Update the package version in your package.json file.
+4. Build your package:
+    ```bash
+    npm run build
+    ```
+5. Publish your package to npm:
+    ```bash
+    npm publish --access public
+    ```
+   This command will publish your package to npm's public registry.
 
-### remove
-Removes a resource from the server.
-```ts
-httpClient.remove(endpoint);
-```
+   <br/>
 
+### Showcase
 
-### Examples
-```ts
-// Get users
-const getUsers = () => {
-    return httpClient.get("/users");
-}
+Check out these libraries built on top of this template:
 
-// Add user
-const addUser = (data: User) => {
-    return httpClient.post("/users", data);
-}
+- [@bonny-kato/httpclient](https://www.npmjs.com/package/@bonny-kato/httpclient) - a simple HTTP client for making
+  asynchronous HTTP requests in JavaScript using built-in fetch api
+- [@bonny-kato/localstorage](https://www.npmjs.com/package/@bonny-kato/httpclient) - wrapper library for working
+  with  `localstorage` browser storage api
 
-// Update user
-const updateUser = (userId: string, data: User) => {
-    return httpClient.put(`/users/${userId}`, data);
-}
+### Contributions
 
-// Remove user
-const removeUser = (userId: string) => {
-    return httpClient.remove(`/users/${userId}`);
-}
-```
-### Interfaces
-
-#### `IHeaders`
-
-```typescript
-export interface IHeaders {
-    "Content-Type"?: "multipart/form-data" | "application/json" | undefined;
-    Authorization?: string;
-}
-```
-
-#### `IHeaders`
-```ts
-export interface IConfig {
-    baseUrl: string;
-    headers?: IHeaders;
-}
-```
-
-#### `HttpMethod`
-```ts
-export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
-```
-
-
-### API Reference
-
-#### Constructor
-
-#### `new HttpClient(config: IConfig)`
-
-Create a new instance of HttpClient.
-
-- `config`: An object containing configuration options.
-    - `baseUrl` (string): The base URL for API requests.
-    - `headers` (IHeaders): Optional. Custom headers to be included in each request.
-
-#### Methods
-
-#### `request(method: HttpMethod, endpoint: string, data?: any): Promise<any>`
-
-Makes a generic HTTP request.
-
-- `method` (HttpMethod): The HTTP method for the request.
-- `endpoint` (string): The endpoint URL.
-- `data` (any): Optional. Data to be sent in the request body.
-
-#### `get(endpoint: string): Promise<any>`
-
-Makes an asynchronous GET request.
-
-- `endpoint` (string): The endpoint URL.
-
-#### `post(endpoint: string, data: object): Promise<any>`
-
-Makes a POST request.
-
-- `endpoint` (string): The endpoint URL.
-- `data` (object): Data to be sent in the request body.
-
-#### `put(endpoint: string, data: object): Promise<any>`
-
-Sends a PUT request.
-
-- `endpoint` (string): The endpoint URL.
-- `data` (object): Data to be sent in the request body.
-
-#### `remove(endpoint: string): Promise<void>`
-
-Removes a resource.
-
-- `endpoint` (string): The endpoint URL.
-
-
-### License
-
-This project is licensed under the MIT License
+Contributions to this starter template are welcome! Your feedback is valuable in improving this template. Feel free to
+share your thoughts and suggestions.
